@@ -50,9 +50,24 @@ namespace DependencyInjection.Api.Repositories
         }
         public List<Student> GetAllStudents()
         {
-            //return _students;
-            return _students.Skip(1).Take(3).ToList();
-            return _students.Where(s => s.PlaceOfBirth == "Iasi").ToList();
+            var firstStudent = _students.FirstOrDefault();
+
+            var tempList = new List<Student>();
+            tempList.Add(new Student
+            {
+                Id = Guid.NewGuid(),
+                Name = "Georgescu Alex",
+                PlaceOfBirth = "Suceava",
+                Grade = 8.8m
+            });
+
+            _students.AddRange(tempList);
+
+
+            return _students;
+
+            //return _students.Skip(1).Take(3).ToList();
+            //return _students.Where(s => s.PlaceOfBirth == "Iasi").ToList();
         }
     }
 }
